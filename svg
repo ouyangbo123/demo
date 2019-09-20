@@ -1,0 +1,28 @@
+<template>
+    <div class="svgBox">
+        <Button type="info" class="clearNoise" @click="onRectReady(true)">清除噪点</Button>
+        <svg class="svgelement" id="svgelement" ref=svg preserveAspectRatio="xMidYMid meet" viewport-fill=red
+             :width="viewBox[2]" :height="viewBox[3]" :viewBox="viewBox.join(' ')" :style=svgStyle
+             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             @mousewheel=onMouseWheel @DOMMouseScroll="onMouseWheel" @mousedown=onMouseDown @mousemove=onMouseMove
+             @mouseup=onMouseUp @mouseenter=onMouseEnter @mouseleave=onMouseLeave
+             @touchstart="onMouseDown"
+             @touchmove="onMouseMove"
+             @touchcancel="onMouseUp"
+             @touchend="onMouseUp"
+        >
+
+            <image ref=image :xlink:href="mapData"
+                   :width="map.width" :height="map.height">
+            </image>
+
+            <map-rect
+                    v-for="(f,i) in rects" :key="i"
+                    :map-rect="f" :map=map fill-style="#fff" :view-box="viewBox"></map-rect>
+            <map-rect ref="editMapRect" :map-rect.sync="editMapRect" :map=map fill-style="#fff"
+                      :view-box="viewBox">
+
+            </map-rect>
+        </svg>
+    </div>
+</template>
